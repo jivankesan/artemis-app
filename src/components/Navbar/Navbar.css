@@ -1,0 +1,24 @@
+/* styles/Navbar.css */
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+  }
+  
+  .navbar-left {
+    font-weight: bold;
+  }
+  
+  .navbar-right a {
+    margin-left: 20px;
+  }
+  
+  .get-started {
+    background-color: blue;  /* Change color as desired */
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: white;
+    text-decoration: none;
+  }
+  
