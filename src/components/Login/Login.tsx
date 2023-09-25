@@ -1,7 +1,10 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import "./Login.css";
 
 const Login = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="login-container">
       <div className="text-center space-y-2">
@@ -34,7 +37,7 @@ const Login = () => {
             Login with Google
           </div>
         </button>
-        <button className="apple-btn">
+        <button className="apple-btn" onClick={() => navigate("/dashboard")}>
           <div className="flex items-center justify-center">
             {/* SVG for Apple */}
             Login with Apple
