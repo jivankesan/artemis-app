@@ -1,16 +1,24 @@
-import React, { FC } from "react";
-import { Route, Routes } from "react-router-dom";
-import Dash_home from "./components/Dash_home/Dash_home";
-import Dash_menu from "./components/Dash_menu/Dash_menu";
+// Dashboard.tsx
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import Sidebar from "./components/Sidebar/Sidebar";
+import CurrentProjects from "./components/CurrentProjects/CurrentProjects";
+import Search from "./components/Search/Search";
+import Workspaces from "./components/Workspaces/Workspaces";
+import Settings from "./components/Settings/Settings";
 
-const Dashboard: FC = () => {
+const Dashboard: React.FC = () => {
   return (
-    <div>
-      <Dash_menu />
-      <Routes>
-        <Route path="/" element={<Dash_home />} />
-        {/* Add other nested routes as needed */}
-      </Routes>
+    <div className="dashboard">
+      <Sidebar />
+      <div className="dashboard-content">
+        <Routes>
+          <Route path="current-projects" element={<CurrentProjects />} />
+          <Route path="search" element={<Search />} />
+          <Route path="workspaces" element={<Workspaces />} />
+          <Route path="settings" element={<Settings />} />
+        </Routes>
+      </div>
     </div>
   );
 };
