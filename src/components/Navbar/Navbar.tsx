@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 
-const Navbar = () => {
-  const [isDropdownOpen, setDropdownOpen] = useState(false);
+const Navbar: React.FC = () => {
   return (
     <nav className="bg-white border-gray-200 dark:bg-gray-900">
       <div className="flex flex-wrap items-center justify-between max-w-screen-xl mx-auto p-4">
@@ -30,8 +29,6 @@ const Navbar = () => {
           >
             Sign up
           </Link>
-          {/* You might need to adjust this button's logic for collapsing the menu in a React way */}
-          <button className="...">...</button>
         </div>
 
         <div className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1">
@@ -41,48 +38,39 @@ const Navbar = () => {
                 Home
               </Link>
             </li>
-            <li>
-              <button
-                onClick={() => setDropdownOpen(!isDropdownOpen)}
-                className="text-gray-800 dark:text-white"
+            <li className="group relative">
+              <Link
+                to="#"
+                className="text-gray-800 dark:text-white cursor-pointer"
               >
                 Company
-              </button>
-              {isDropdownOpen && (
-                <div className="absolute z-10 grid grid-cols-2 text-sm bg-white border border-gray-100 rounded-lg shadow-md dark:border-gray-700 md:grid-cols-3 dark:bg-gray-700">
-                  <div className="p-4">
-                    <Link
-                      to="/about-us"
-                      className="text-gray-800 dark:text-white"
-                    >
-                      About Us
-                    </Link>
-                    <Link
-                      to="/library"
-                      className="text-gray-800 dark:text-white"
-                    >
-                      Library
-                    </Link>
-                    <Link
-                      to="/resources"
-                      className="text-gray-800 dark:text-white"
-                    >
-                      Resources
-                    </Link>
-                    <Link
-                      to="/pro-version"
-                      className="text-gray-800 dark:text-white"
-                    >
-                      Pro Version
-                    </Link>
-                  </div>
-                  {/* ... other links/columns ... */}
+              </Link>
+              <div className="absolute z-10 text-sm bg-white border border-gray-100 rounded-lg shadow-md dark:border-gray-700 dark:bg-gray-700 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                <div className="p-4 flex flex-col space-y-2">
+                  <Link
+                    to="/about-us"
+                    className="text-gray-800 dark:text-white"
+                  >
+                    About Us
+                  </Link>
+                  <Link to="/library" className="text-gray-800 dark:text-white">
+                    Library
+                  </Link>
+                  <Link
+                    to="/resources"
+                    className="text-gray-800 dark:text-white"
+                  >
+                    Resources
+                  </Link>
+                  <Link to="/pricing" className="text-gray-800 dark:text-white">
+                    Pro Version
+                  </Link>
                 </div>
-              )}
+              </div>
             </li>
             <li>
-              <Link to="/team" className="text-gray-800 dark:text-white">
-                Team
+              <Link to="/product" className="text-gray-800 dark:text-white">
+                Product
               </Link>
             </li>
             <li>
