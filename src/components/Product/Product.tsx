@@ -3,7 +3,7 @@ import React from "react";
 const Product: React.FC = () => {
   return (
     <div className="bg-white dark:bg-gray-900 py-12 px-4 sm:px-6 lg:py-16 lg:px-8 mx-auto max-w-3xl">
-      <h1 className="text-3xl font-bold leading-9 text-gray-900 dark:text-white mb-6 text-center">
+      <h1 className="text-3xl font-bold leading-9 text-black-900 dark:text-white mb-6 text-center">
         The Product
       </h1>
       <div className="space-y-6 text-gray-700 dark:text-gray-300">
