@@ -1,186 +1,121 @@
-import React from "react";
+import React, { useState, ChangeEvent, FormEvent } from "react";
+import axios from "axios";
+
+interface FormData {
+  firstName: string;
+  lastName: string;
+  company: string;
+  // other fields...
+}
 
 const FormComponent: React.FC = () => {
+  const [formData, setFormData] = useState<FormData>({
+    firstName: "",
+    lastName: "",
+    company: "",
+    // other fields...
+  });
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value });
+  };
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        "http://127.0.0.1:8000/users/api/register/",
+        formData
+      );
+      console.log(response.data.message); // Handle success
+
+      // Reset the form data
+      setFormData({
+        firstName: "",
+        lastName: "",
+        company: "",
+        // other fields...
+      });
+    } catch (error) {
+      console.error("There was an error submitting the form!", error); // Handle error
+    }
+  };
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
       <div className="w-full max-w-xl bg-white p-8 rounded-lg shadow-md">
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="grid gap-6 mb-6 md:grid-cols-2">
+            {/* First Name Input */}
             <div>
               <label
-                htmlFor="first_name"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                htmlFor="firstName"
+                className="block mb-2 text-sm font-medium text-gray-900"
               >
-                First name
+                First Name
               </label>
               <input
                 type="text"
-                id="first_name"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                id="firstName"
+                value={formData.firstName}
+                onChange={handleChange}
+                className="w-full p-2.5 border rounded-lg"
                 placeholder="John"
                 required
               />
             </div>
 
+            {/* Last Name Input */}
             <div>
               <label
-                htmlFor="last_name"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                htmlFor="lastName"
+                className="block mb-2 text-sm font-medium text-gray-900"
               >
-                Last name
+                Last Name
               </label>
               <input
                 type="text"
-                id="last_name"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                id="lastName"
+                value={formData.lastName}
+                onChange={handleChange}
+                className="w-full p-2.5 border rounded-lg"
                 placeholder="Doe"
                 required
               />
             </div>
 
+            {/* Company Input */}
             <div>
               <label
                 htmlFor="company"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                className="block mb-2 text-sm font-medium text-gray-900"
               >
                 Company
               </label>
               <input
                 type="text"
                 id="company"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Flowbite"
+                value={formData.company}
+                onChange={handleChange}
+                className="w-full p-2.5 border rounded-lg"
+                placeholder="Your Company"
                 required
               />
             </div>
 
-            <div>
-              <label
-                htmlFor="phone"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            {/* Other Input Fields... */}
+            {/* Add additional input fields similar to the above, adjusting for any specific needs */}
+
+            {/* Submit Button */}
+            <div className="mt-6">
+              <button
+                type="submit"
+                className="w-full p-2.5 bg-blue-600 text-white rounded-lg"
               >
-                Phone number
-              </label>
-              <input
-                type="tel"
-                id="phone"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="123-45-678"
-                pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
-                required
-              />
-            </div>
-
-            <div>
-              <label
-                htmlFor="website"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >
-                Website URL
-              </label>
-              <input
-                type="url"
-                id="website"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="flowbite.com"
-                required
-              />
-            </div>
-
-            <div>
-              <label
-                htmlFor="visitors"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >
-                Unique visitors (per month)
-              </label>
-              <input
-                type="number"
-                id="visitors"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                required
-              />
+                Submit
+              </button>
             </div>
           </div>
-
-          <div className="mb-6">
-            <label
-              htmlFor="email"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >
-              Email address
-            </label>
-            <input
-              type="email"
-              id="email"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="john.doe@company.com"
-              required
-            />
-          </div>
-
-          <div className="mb-6">
-            <label
-              htmlFor="password"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="•••••••••"
-              required
-            />
-          </div>
-
-          <div className="mb-6">
-            <label
-              htmlFor="confirm_password"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >
-              Confirm password
-            </label>
-            <input
-              type="password"
-              id="confirm_password"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="•••••••••"
-              required
-            />
-          </div>
-
-          <div className="flex items-start mb-6">
-            <div className="flex items-center h-5">
-              <input
-                id="remember"
-                type="checkbox"
-                className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
-                required
-              />
-            </div>
-            <label
-              htmlFor="remember"
-              className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-            >
-              I agree with the{" "}
-              <a
-                href="#"
-                className="text-blue-600 hover:underline dark:text-blue-500"
-              >
-                terms and conditions
-              </a>
-              .
-            </label>
-          </div>
-
-          <button
-            type="submit"
-            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-          >
-            Submit
-          </button>
         </form>
       </div>
     </div>
